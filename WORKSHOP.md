@@ -745,39 +745,59 @@ This scenario exercises **all four of the workflows you've learned** (review, de
 
 ---
 
-## Challenge: 4 Steps (20 minutes)
+## 🧩 Challenge: Try It Yourself (20 minutes)
 
-### Step 1: Understand the Scenario (2 minutes)
+Now it's your turn. You're the project coordinator. Brief the orchestrator with **one well-structured `/fleet` prompt** and let it dispatch four parallel subagents.
 
-You're a project coordinator. Your job is to brief the orchestrator with one well-structured prompt and let it dispatch four parallel subagents.
+### Setup (3 minutes)
 
-**Context**:
-- The **book-app** is your codebase
-- You're deploying a new version Friday
-- QA needs a baseline of issues
-- There's a reported bug (mark-as-read behavior)
-- Architecture needs improvement before production
-- Test coverage is critical
+**Scenario** — same as the Real-World Scenario above:
+- The **book-app** is your codebase.
+- You're deploying a new version Friday.
+- QA needs a baseline of issues.
+- There's a reported bug (mark-as-read behavior).
+- Architecture needs improvement before production.
+- Test coverage is critical.
 
 Each work item targets a **discrete artifact** (a specific file or folder), so the orchestrator can parallelize them cleanly.
 
----
-
-### Step 2: Start Copilot CLI (1 minute)
+**Start Copilot CLI:**
 
 ```bash
 copilot
 ```
 
-You're now at the interactive `>` prompt.
-
 > 💡 **Pro workflow** (optional): Press **Shift+Tab** to enter plan mode, draft an implementation plan together with Copilot, then choose **"Accept plan and build on autopilot + /fleet"** to let Copilot execute the whole plan with subagents in parallel. For this exercise we'll use `/fleet` directly.
 
 ---
 
-### Step 3: Launch All 4 Workstreams in One `/fleet` Prompt (5 minutes)
+### 🐛 Your Mission (17 minutes)
 
-**Copy and paste this single prompt at the `>`:**
+Write **one** `/fleet` prompt that launches these four independent workstreams in parallel and asks for a clearly-labeled report from each:
+
+| # | Workstream | Target file / folder | Goal |
+|---|---|---|---|
+| 1 | **Code Quality Audit** | `@samples/book-app-project/` | Prioritized list of quality issues with HIGH/MEDIUM/LOW severity |
+| 2 | **Critical Bug** | `@samples/book-app-buggy/books_buggy.py` | Root cause of "marking one book as read marks ALL books as read", with fix |
+| 3 | **Architecture Refactor** | `@samples/book-app-project/book_app.py` | Replace if/elif chain with dictionary dispatch, add type hints, improve error handling |
+| 4 | **Test Generation** | `@samples/book-app-project/` | Comprehensive pytest suite covering operations, edge cases, error scenarios |
+
+Then:
+1. Submit your prompt at the `>` prompt.
+2. Use `/tasks` to monitor the four subagents (↑/↓ to navigate, Enter for details, Esc to exit).
+3. When everything finishes, review the four reports and look for **cross-cutting findings** — e.g. did the Audit flag the same root cause the Debug agent isolated? Do the generated tests cover it?
+
+**Take 4–5 minutes** to craft the prompt before peeking at the solution. Be explicit that the workstreams are independent so the orchestrator parallelizes cleanly.
+
+> 💡 **Hints**:
+> - Reference each file/folder with `@path` so subagents have scoped context.
+> - State the deliverable for each workstream (a list, a root-cause explanation, a refactored snippet, a test suite).
+> - End with a sentence like "These workstreams are independent — run them in parallel."
+
+<details>
+<summary>✅ <b>Click to reveal a working solution</b> (try it yourself first!)</summary>
+
+**Example `/fleet` prompt:**
 
 ```
 /fleet Run the following four independent workstreams in parallel and return a clearly-labeled report for each:
@@ -803,45 +823,16 @@ These four workstreams are independent — they target different files and conce
 - Because the workstreams target different files and don't depend on each other, the subagents run **in parallel**.
 - You sent **one** prompt — the orchestrator handled the splitting.
 
----
+**Suggested review order once `/tasks` shows everything complete:**
 
-### Step 4: Monitor & Review Results (12 minutes)
+1. **Code Quality Audit** — What quality issues exist? Which are HIGH priority? Which align with what the Debug subagent found?
+2. **Critical Bug** — What's the root cause? Does it match anything the Audit flagged? How would the Refactor's changes prevent it?
+3. **Architecture Refactor** — What did it propose? Does it address the Audit's issues? Would it prevent bugs like the one the Debug subagent found?
+4. **Test Generation** — Do the tests cover what the Audit and Debug subagents identified? Are edge cases covered? Would these tests catch the mark-as-read bug?
 
-**Check progress at the `>` prompt:**
+**Synthesis**: Notice how all four subagents contributed different perspectives on the *same codebase* — the Audit found issues; Test Generation wrote tests for them; Debug isolated a specific bug; Refactor's changes could prevent similar issues. All happened simultaneously, from a single prompt.
 
-```
-/tasks
-```
-
-You'll see all 4 subtasks. Use ↑/↓ to navigate, Enter for details, `r` to remove finished tasks, Esc to exit. Wait until all report complete.
-
-**When all agents finish**, review in this order:
-
-**First**: Code Quality Audit findings
-- What quality issues exist?
-- Which are HIGH priority?
-- Which align with what the Debug subagent found?
-
-**Second**: Critical Bug findings
-- What's the root cause?
-- Does it match anything the Audit subagent flagged?
-- How would the Refactor subagent's changes prevent it?
-
-**Third**: Refactor findings
-- What did it propose?
-- Does it address the Audit's issues?
-- Would it prevent bugs like the one the Debug subagent found?
-
-**Fourth**: Test Generation findings
-- Do the tests cover what the Audit and Debug subagents identified?
-- Are edge cases covered?
-- Would these tests catch the mark-as-read bug?
-
-**Final Step**: Synthesis
-- Notice how all four subagents contributed different perspectives on the *same codebase*
-- The Audit found issues; Test Generation wrote tests for them
-- Debug isolated a specific bug; Refactor's changes could prevent similar issues
-- All happened simultaneously, from a single prompt
+</details>
 
 ---
 
