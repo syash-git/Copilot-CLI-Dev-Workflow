@@ -52,11 +52,15 @@ You've just inherited the book app codebase. You've never seen it before. You ne
 
 ## Step 1: Run Your First Code Review
 
-**Copy and paste this command into your terminal:**
+**First, start the Copilot CLI by running this one-liner in your terminal:**
 
 ```bash
 copilot
+```
 
+**Then, copy and paste this prompt at the Copilot CLI prompt:**
+
+```bash
 > Review @samples/book-app-project/book_app.py for code quality
 ```
 
@@ -97,7 +101,10 @@ copilot
 
 ---
 
-## Step 3: Advanced - Using the `/review` Slash Command
+## Step 3 (Optional): Pro Tip - Using the `/review` Slash Command
+
+<details>
+<summary>💡 <b>Optional Pro Tip — click to expand</b>: use the <code>/review</code> slash command for pre-commit reviews</summary>
 
 You've now learned how to review code using **text prompts**. But Copilot CLI also has a **slash command** optimized for a different use case: **reviewing actual changes** you're about to commit.
 
@@ -150,6 +157,8 @@ copilot
 **What you'll see**: Only your modification highlighted for review—not the entire file.
 
 **Key insight**: `/review` gives you **laser-focused feedback** on exactly what you changed, with high-quality analysis and minimal noise.
+
+</details>
 
 ---
 
@@ -217,6 +226,20 @@ def show_books(books: List[Book]) -> None:
 
 ---
 
+## 🧠 Quick Primer: Plan Mode (1 minute)
+
+Before you drive Copilot yourself for the first time, meet **Plan Mode** — it asks Copilot to *think before it types*. Instead of jumping straight to edits, Copilot drafts a step-by-step plan you can review, tweak, or reject. Perfect for multi-step changes like the exercise below.
+
+**How to use it:** type `/plan` inside the Copilot CLI, then describe your goal. Copilot outlines its approach and waits for your approval before changing any code.
+
+```bash
+> /plan add input validation to handle_add() in @samples/book-app-project/book_app.py
+```
+
+Try it on the next exercise — review the plan, then say "go" to execute.
+
+---
+
 ## 🧩 Step 2: Exercise — Improve Input Validation (HIGH Priority)
 
 Time to practice on your own! This is a HIGH priority issue you'll fix yourself with Copilot CLI.
@@ -245,26 +268,35 @@ What happens? You'll discover the app happily accepts garbage data — empty str
 
 **Take 4 minutes**: Craft your own prompt to Copilot CLI to fix this. Think about what context Copilot needs (the file, the function, the rules).
 
-> 💡 **Hint**: Reference the file with `@samples/book-app-project/book_app.py` and be specific about *which* function to change and *what* rules to enforce.
+> 💡 **Hint**: Try starting with `/plan` (see the primer above) so Copilot proposes an approach before editing. Reference the file with `@samples/book-app-project/book_app.py` and be specific about *which* function to change and *what* rules to enforce.
 
 <details>
 <summary>✅ <b>Click to reveal the solution</b> (try it yourself first!)</summary>
 
-**Example prompt:**
+**Example prompt — using Plan Mode:**
 
 ```bash
 copilot
 
-> Review @samples/book-app-project/book_app.py and improve input validation 
-> in the handle_add() function. Add checks for: empty strings in title and 
-> author fields, validate that year is in a reasonable range (1000-2100), 
-> and provide clear error messages for validation failures.
+# Step A — ask Copilot to draft a plan first
+> /plan Improve input validation in handle_add() in 
+> @samples/book-app-project/book_app.py. Rules:
+> - Reject empty title and author (after stripping whitespace)
+> - Restrict year to the range 1000–2100
+> - Reject non-numeric year input
+> - Show a friendly error and return early on each failure
+
+# Step B — review the plan, then approve to execute
+> Looks good — go ahead and apply it.
 ```
 
+> 💡 If something in the plan looks off, push back instead of approving:
+> *"Also handle the case where year input is empty — treat it as invalid."*
+> Copilot will revise the plan, then wait for approval again.
+
 **What Copilot does:**
-- Scans the input handling in `handle_add()`
-- Identifies gaps (empty strings not validated, year range not checked)
-- Suggests fixes with proper error handling and user-friendly messages
+- **Plan phase:** drafts a step-by-step plan (which checks to add, in what order, what messages to print) and waits for your approval — no code changes yet.
+- **Execute phase:** once you approve, it edits `handle_add()` to match the plan with proper error handling and user-friendly messages.
 
 **Example before/after:**
 
@@ -958,41 +990,3 @@ Sequential mastery makes you fast. Parallel execution makes you a force multipli
 Looking for the prompt templates from this workshop? They live in [QUICK-REFERENCE.md](./QUICK-REFERENCE.md) — save them for use on your own code.
 
 ---
-
-# 🎓 FINAL THOUGHTS
-
-You came in today thinking:
-
-> *"How do I review inherited code? How do I improve it safely? How do I test it thoroughly? How do I debug in production?"*
-
-You leave today knowing:
-
-> *"I have a process. I have tools. I can handle any code, any deadline, any bug. And I can do it confidently."*
-
-That confidence? That's not from the tool. That's from understanding a **proven workflow**.
-
----
-
-**Congratulations. You're ready. 🚀**
-
-Now go build great things.
-
----
-
-## 📝 Remember These Three Things:
-
-1. **Copilot CLI is your pair programmer.** You're in charge.
-2. **The workflow matters more than the tool.** Review → Refactor → Test → Debug.
-3. **Speed comes from understanding.** You didn't finish fast by cutting corners. You finished fast by having a method.
-
----
-
-**Questions?** Refer to the [Troubleshooting guide](./TROUBLESHOOTING.md), or check the [official Copilot CLI documentation](https://docs.github.com/en/copilot/how-tos/copilot-cli).
-
-**Ready for more?** See [Chapter 03: Development Workflows](../03-development-workflows/README.md) for deeper explorations of each workflow.
-
-**Want to lead a workshop?** These materials are designed for both self-paced learning (what you just did) and instructor-led delivery.
-
----
-
-**That's it. You've got this. 💪**

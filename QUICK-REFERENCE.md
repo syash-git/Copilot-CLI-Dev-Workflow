@@ -4,6 +4,13 @@ Reusable prompt templates from the [Workshop](./WORKSHOP.md). Save these for use
 
 ---
 
+## Plan Mode
+```bash
+# Ask Copilot to draft a plan before editing
+copilot
+> /plan [describe the goal, reference files with @path]
+```
+
 ## Code Review Templates
 ```bash
 # Basic review
