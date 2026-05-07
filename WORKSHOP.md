@@ -2,6 +2,8 @@
 
 > 45–60 minutes • 5 hands-on modules • You'll *do* every workflow on your laptop, not just read about it.
 
+This workshop will walk you through a common developer workflow: **review** an inherited codebase (Module 1), **refactor** the issues it surfaces (Module 2), **generate tests** to lock the behaviour in (Module 3), and **debug** what's still broken (Module 4) — then in Module 5 you'll use `/fleet` to run all four in parallel, the way a senior engineer juggles multiple workstreams. Each module pairs a guided walkthrough with a try-it-yourself exercise, so by the end you'll have a repeatable Copilot CLI workflow you can apply to any codebase tomorrow.
+
 New here? Start with the [README](./README.md) for the story and setup checklist, then come back.
 
 ---
@@ -130,26 +132,13 @@ copilot
 
 ---
 
-## ✨ Key Insight: Code Review
-
-> You don't just understand the code now—you have a **prioritized action plan**. Instead of guessing what to fix, you know exactly what matters most.
-
-**Remember this**: The workflow is **Understand → Prioritize → Act**. Every time you inherit code, this is your first step.
-
----
-
----
-
 # 🛠️ MODULE 2: REFACTORING (15 minutes)
 
 ## What You're Doing
 
 You've reviewed the code and found issues. Now it's time to **improve it safely**. Refactoring means changing the structure/organization without breaking functionality.
 
-From the code review, you found **12 HIGH priority issues**:
-- **7 Missing type hints** ← We'll fix these first (quick wins, foundational)
-- **5 Input validation gaps** ← We'll fix these second (practical bug prevention)
-- (Bonus: Architectural improvements like if/elif chains, if time permits)
+Your code review may have surfaced a different mix of findings depending on how Copilot framed them — counts, categories, and severity labels vary from run to run, and that's normal. That said, two themes come up almost every time on this codebase: **missing type hints** and **weak input validation**. Those are the two we'll tackle in this module — type hints first (a quick, foundational win), then input validation (practical bug prevention). If you have time at the end, the architectural improvements (e.g. the `if/elif` chain in command dispatch) make a great bonus.
 
 ---
 
@@ -169,7 +158,7 @@ copilot
 
 **What happens:**
 - Copilot scans the file
-- It identifies all 7 functions missing type hints
+- It identifies the functions missing type hints
 - It suggests adding types like `def show_books(books: List[Book]) -> None:`
 - It might even provide the complete refactored code
 
@@ -312,21 +301,6 @@ def handle_add():
 
 ---
 
-## ✨ Key Insight: Refactoring
-
-> Refactoring isn't random "make it prettier" work. It's **strategic improvement**. Start with **HIGH priority issues** (bugs, missing safety checks), then move to **MEDIUM priority issues** (architectural improvements).
-> 
-> **Priority pyramid:**
-> 1. **HIGH**: Bugs and data quality (type hints, validation) ← Do these first
-> 2. **MEDIUM**: Maintainability and extensibility (patterns) ← Do these if time permits
-> 3. **LOW**: Style and polish ← Optional
-
-**Remember this**: Always refactor **with tests as your safety net**. That's our next workflow.
-
----
-
----
-
 # 🧪 MODULE 3: TEST GENERATION (12 minutes)
 
 ## What You're Doing
@@ -414,19 +388,6 @@ def test_load_books_handles_missing_file():
     # Should gracefully handle missing data.json
     assert collection.list_books() == []
 ```
-
----
-
-## ✨ Key Insight: Test Generation
-
-> Tests aren't about passing a test suite. They're about **confidence**. When all tests pass, you can ship code fearlessly. When they fail, you know exactly what broke.
-
-**Remember this**: 
-- Comprehensive tests = confidence to refactor
-- Passing tests = proof that code works
-- Failing tests = early warning of problems
-
----
 
 ---
 
@@ -558,18 +519,6 @@ Every time something breaks, follow this pattern:
 6. **Run tests**: Verify the fix works and doesn't break anything else
 
 ---
-
-## ✨ Key Insight: Debugging
-
-> Debugging isn't random guessing. It's **systematic thinking**:
-> - Describe what you see (symptom)
-> - Find where it happens (location)
-> - Understand why (root cause)
-> - Fix the root cause (not the symptom)
-
-**Remember this**: If you find a bug, write a test for it. That bug becomes part of your test suite, so it never comes back.
-
----
 # 🚀 MODULE 5: Parallel Analysis with /fleet Mode
 
 ## Why Fleet Mode?
@@ -674,23 +623,6 @@ For larger codebases or more analyses, the savings multiply.
 
 > ⚡ **Pro tip**: For complex multi-step changes, build an implementation plan first (press **Shift+Tab** to enter plan mode), then choose **"Accept plan and build on autopilot + /fleet"** to let Copilot execute the whole plan with subagents in parallel.
 
----
-
-## Key Insights: When to Use Fleet
-
-### ✅ Use Fleet For:
-
-- **Independent analyses**: Security, performance, and documentation are separate concerns
-- **Multi-file reviews**: Analyze 5 different files or modules in parallel
-- **Team scaling**: Each team member runs their own fleet simultaneously
-- **Batch operations**: "Review all my recent PRs" across multiple branches
-
-### ❌ Don't Use Fleet For:
-
-- **Dependent tasks**: Don't run "refactor" and "test" in parallel if tests depend on refactoring
-- **Sequential workflows**: The 4 main workflows (review → refactor → test → debug) have dependencies
-- **Shared state**: If agents need to coordinate decisions, run them sequentially
-- **Single-file analysis**: No benefit if you only have one thing to analyze
 ---
 
 ## 🎼 Optional Exercise: Orchestrate All Four Workflows with One `/fleet` Prompt
@@ -835,72 +767,6 @@ These four workstreams are independent — they target different files and conce
 </details>
 
 ---
-
-## Key Insights
-
-### This Is How Professional Teams Operate
-
-In real development:
-
-- **QA teams** audit code quality continuously
-- **Debugging specialists** fix reported bugs
-- **Architecture leads** improve design
-- **Test teams** ensure coverage
-
-These happen **in parallel**, not sequentially. Each role doesn't wait for the others.
-
-### Sequential vs. Parallel (The Speed Advantage)
-
-**Sequential approach** (old way):
-```
-Agent 1 review:     10 minutes
-Agent 2 debug:       8 minutes
-Agent 3 refactor:   12 minutes
-Agent 4 tests:      15 minutes
-─────────────────────────────
-TOTAL:              45 minutes
-```
-
-**Parallel approach** (with /fleet):
-```
-Agent 1 │ Agent 2 │ Agent 3 │ Agent 4
-review  │  debug  │ refactor│  tests
- (10m)  │  (8m)   │  (12m)  │ (15m)
-────────────────────────────────────
-All run simultaneously = ~15 minutes
-```
-
-**Time saved: 30 minutes (67% faster)** on the same work.
-
-### When to Use This Pattern
-
-Use `/fleet` when:
-- ✅ You have **independent work items** (different files, different concerns, different roles)
-- ✅ Each item maps to a **discrete artifact** so the orchestrator can split cleanly
-- ✅ Items don't block each other (review doesn't need test results first)
-- ✅ You want **faster results** on complex codebases or multi-step plans
-
-Skip `/fleet` when:
-- ❌ Tasks are **sequentially dependent** (fix must be tested before shipping)
-- ❌ Results from one task directly feed into the next (run them sequentially instead)
-- ❌ The work is a single small change (overhead isn't worth it)
-
-> ⚠️ **Heads up**: Each subagent runs its own LLM session, so `/fleet` typically consumes **more premium requests** than running the same work in a single session. Use it where the speedup is worth the cost. See [the official docs](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/fleet) for details.
-
-### Mental Model: Vague Prompts Run Sequentially
-
-The orchestrator only parallelizes work it can confidently split. If your prompt is vague or the dependencies are tangled, it may execute the work sequentially anyway. The fix is to **structure your prompt** with clearly numbered, independent items each pointing at a discrete artifact (file, folder, or concern) — exactly as we did in the basic and advanced challenges above.
-
-### The Bigger Lesson
-
-You've now seen /fleet used in two ways:
-
-1. **Module 5 challenge**: Parallel *independent analyses* (security, performance, documentation)
-2. **This stretch exercise**: Parallel *complete workflows* across *different task types* (review, debug, refactor, test)
-
-The principle is the same: **identify independent work** and let Copilot CLI execute it in parallel.
-
-This scales your productivity not just for analysis, but for complete development cycles.
 
 </details>
 
