@@ -1,6 +1,6 @@
 # 📋 Quick Reference: All Prompts
 
-Reusable prompt templates from the [Workshop](./WORKSHOP.md). Save these for use on your own code.
+Reusable prompt templates from the [Workshop](./README.md). Save these for use on your own code.
 
 ---
 

@@ -1,6 +1,6 @@
 # 🔧 Workshop Troubleshooting
 
-Common issues you might hit during the [Workshop](./WORKSHOP.md), and how to fix them.
+Common issues you might hit during the [Workshop](./README.md), and how to fix them.
 
 ---
 
