@@ -20,8 +20,8 @@ Make sure you have:
 
 - [ ] **GitHub Copilot CLI installed**: Run `copilot --version`
 - [ ] **Python 3.10+**: Run `python --version`
-- [ ] **This repository cloned**: `git clone https://github.com/github/copilot-cli-for-beginners`
-- [ ] **Terminal open** in the repo directory: `cd copilot-cli-for-beginners`
+- [ ] **This repository cloned**: `git clone https://github.com/syash-git/Copilot-CLI-Dev-Workflow.git`
+- [ ] **Terminal open** in the repo directory: `cd Copilot-CLI-Dev-Workflow`
 
 **Stuck?** See the [Troubleshooting guide](./TROUBLESHOOTING.md).
 
@@ -35,11 +35,11 @@ You'll walk through the same loop a developer runs on real work: **review** an i
 
 Work through them in order — each one builds on the last.
 
-1. 🔍 **[Module 1 — Code Review](./modules/01-code-review.md)** · 20 min
+1. 🔍 **[Module 1 — Code Review](./modules/01-code-review.md)** · 10 min
    Audit an inherited codebase with Copilot and produce a prioritized fix list.
-2. 🛠️ **[Module 2 — Refactoring](./modules/02-refactoring.md)** · 15 min
+2. 🛠️ **[Module 2 — Refactoring](./modules/02-refactoring.md)** · 12 min
    Apply the top fixes with Copilot, using **Plan Mode** for the bigger ones.
-3. 🧪 **[Module 3 — Test Generation](./modules/03-test-generation.md)** · 12 min
+3. 🧪 **[Module 3 — Test Generation](./modules/03-test-generation.md)** · 10 min
    Lock the behaviour in with a comprehensive pytest suite.
 4. 🐛 **[Module 4 — Debugging](./modules/04-debugging.md)** · 13 min
    Reproduce and root-cause two real bugs in the buggy variant of the app.
