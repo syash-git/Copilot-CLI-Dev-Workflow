@@ -25,6 +25,14 @@ Make sure you have:
 
 **Stuck?** See the [Troubleshooting guide](./TROUBLESHOOTING.md).
 
+> 💡 The practice codebase lives in [`samples/book-app-project/`](./samples/book-app-project) — a small Python CLI for managing a book collection. Try it now:
+>
+> ```bash
+> cd samples/book-app-project
+> python book_app.py list
+> python book_app.py help
+> ```
+
 ---
 
 ## 🧑‍💻 The Workshop
@@ -41,9 +49,9 @@ Work through them in order — each one builds on the last.
    Apply the top fixes with Copilot, using **Plan Mode** for the bigger ones.
 3. 🧪 **[Module 3 — Test Generation](./modules/03-test-generation.md)** · 10 min
    Lock the behaviour in with a comprehensive pytest suite.
-4. 🐛 **[Module 4 — Debugging](./modules/04-debugging.md)** · 13 min
+4. 🐛 **[Module 4 — Debugging](./modules/04-debugging.md)** · 12 min
    Reproduce and root-cause two real bugs in the buggy variant of the app.
-5. 🚀 **[Module 5 — Parallel Analysis with /fleet](./modules/05-fleet-mode.md)** · 20 min
+5. 🚀 **[Module 5 — Parallel Analysis with /fleet](./modules/05-fleet-mode.md)** · 15 min
    Run several of the workflows above in parallel, the way a senior engineer juggles multiple workstreams.
 
 When you finish, head to the **[Wrap-up](./modules/wrap-up.md)** for the key takeaways and a pointer to the prompt cheat sheet.

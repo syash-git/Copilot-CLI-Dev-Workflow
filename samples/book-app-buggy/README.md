@@ -28,15 +28,3 @@ This directory contains an intentionally buggy version of the book collection ap
 | 9 | `handle_remove()` always prints success | Says "Book removed" even when the book wasn't found |
 
 ---
-
-## How to Use in Chapter 03
-
-```bash
-copilot
-
-> @samples/book-app-buggy/books_buggy.py Users report that searching for
-> "The Hobbit" returns no results even though it's in the data. Debug why.
-
-> @samples/book-app-buggy/book_app_buggy.py When I remove a book that
-> doesn't exist, the app says it was removed. Help me find why.
-```
