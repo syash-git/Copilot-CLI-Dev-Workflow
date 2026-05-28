@@ -10,7 +10,7 @@ Common issues you might hit during the [Workshop](./README.md), and how to fix t
 
 **Solution**:
 ```bash
-npm install -g @github/copilot-cli
+npm install -g @github/copilot
 ```
 
 Then verify:
